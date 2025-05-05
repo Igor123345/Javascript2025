@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аналіз числа</title>
+    <style>
+        body {
+            background-color: #4a4a4a;
+            text-align: center;
+            font-family: sans-serif;
+            color: white;
+        }
+        .container {
+            background-color: #353535;
+            border-radius: 10px;
+            padding: 20px;
+            width: 400px;
+            margin: auto;
+            margin-top: 100px;
+            font-size: 20px;
+        }
+        input {
+            width: 90%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            color: black;
+            outline: none;
+        }
+        .btn {
+            background-color: #6ce055;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            width: 45%;
+            margin: 5px;
+        }
+        span {
+            display: block;
+            margin-top: 15px;
+        }
+
+
+
+        .nav-link {
+        position: fixed;
+        bottom: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #6ce055;
+        border-radius: 30px;
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        z-index: 1000;
+    }
+
+    .nav-link:hover {
+        background-color: #56b846;
+    }
+
+    .back {
+        left: 20px;
+    }
+
+    .forward {
+        right: 20px;
+    }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Аналіз числа</h2>
+    <form name="co" action="javascript:co()">
+        <p>Введіть число:</p>
+        <input name="num" type="number" required>
+        <input class="btn" type="submit" value="OK">
+        <input class="btn" type="reset" name="reset" value="Скинути">
+        <span id="answer"></span>
+        <span id="answer2"></span>
+    </form>
+</div>
+
+
+<a href="2)Compliments.html" class="nav-link back">Назад</a>
+  <a href="4)Random_in_Range.html" class="nav-link forward">Вперед</a>
+
+<script>
+    function getUkrainianWord(number) {
+        let lastDigit = number % 10;
+        let lastTwoDigits = number % 100;
+
+        switch (true) {
+            case lastDigit === 1 && lastTwoDigits !== 11:
+                return "цифра";
+            case (lastDigit === 2 || lastDigit === 3 || lastDigit === 4) && !(lastTwoDigits >= 12 && lastTwoDigits <= 14):
+                return "цифри";
+            default:
+                return "цифр";
+        }
+    }
+
+    function co() {
+        let number = document.co.num.value.trim();
+        let answer = document.getElementById("answer");
+        let answer2 = document.getElementById("answer2");
+
+        if (!number || isNaN(number)) {
+            answer.innerHTML = "Будь ласка, введіть ціле число.";
+            return;
+        }
+
+
+        let length = number.length;
+        let evenCount = 0;
+        let oddCount = 0;
+
+
+        for(i=0; i< number.length; i++){
+            answer2.innerHTML += ` <br> ${number.charAt(i)} `;
+        }
+
+        for (let i = 0; i < length; i++) {
+            let digit = parseInt(number[i]);
+            switch (digit % 2) {
+                case 0:
+                    evenCount++;
+                    break;
+                case 1:
+                    oddCount++;
+                    break;
+            }
+        }
+
+        
+
+        answer.innerHTML = `
+            У числі <b>${number}</b> є ${length} ${getUkrainianWord(length)}. <br>
+            Парних: ${evenCount} ${getUkrainianWord(evenCount)}. <br>
+            Непарних: ${oddCount} ${getUkrainianWord(oddCount)}.
+        `;
+    }
+</script>
+
+</body>
+</html>

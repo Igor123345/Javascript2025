@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кидок кубика</title>
+    <style>
+        body {
+            background-color: #4a4a4a;
+            font-size: 20px;
+            text-align: center;
+            font-family: sans-serif;
+            color: #ead9d9;
+        }
+
+        .container {
+            background-color: rgb(53, 53, 53);
+            border-radius: 5px;
+            padding: 20px;
+            width: 500px;
+            margin: 30px auto;
+            box-shadow: #6ce055 0px 6px 12px -2px, rgb(0, 0, 0) 0px 3px 7px -3px;
+        }
+
+        .nav-link {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #6ce055;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-link:hover {
+            background-color: #56b846;
+        }
+
+        .back {
+            left: 20px;
+        }
+
+        .forward {
+            right: 20px;
+        }
+
+        canvas {
+            border: 1px solid #6ce055;
+            margin-top: 20px;
+            background-color: #ffffff;
+        }
+
+        .BTN{
+            background-color: #6ce055;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 16px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter 0.2s;
+            margin: 10px;
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h3>Кидок грального кубика 🎲</h3>
+    <button class="BTN" onclick="rollDice()">Кинути кубик</button>
+    <p id="result"></p>
+    <canvas id="canvas" width="200" height="200"></canvas>
+</div>
+
+<a href="10)Figures.html" class="nav-link back">Назад</a>
+<a href="12)Canvas_paint.html" class="nav-link forward">Вперед</a>
+
+<script>
+    function rollDice() {
+        const canvas = document.getElementById("canvas");
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        const result = Math.floor(Math.random() * 6) + 1;
+        document.getElementById("result").innerText = `Випало: ${result}`;
+
+        const positions = {
+            1: [[100, 100]],
+            2: [[60, 60], [140, 140]],
+            3: [[60, 60], [100, 100], [140, 140]],
+            4: [[60, 60], [60, 140], [140, 60], [140, 140]],
+            5: [[60, 60], [60, 140], [100, 100], [140, 60], [140, 140]],
+            6: [[60, 60], [60, 100], [60, 140], [140, 60], [140, 100], [140, 140]]
+        };
+
+        ctx.fillStyle = "red";
+        for (const [x, y] of positions[result]) {
+            ctx.beginPath();
+            ctx.arc(x, y, 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+</script>
+
+</body>
+</html>

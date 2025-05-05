@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Рівняння кола</title>
+  <style>
+    body {
+      background-color: #4a4a4a;
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    .container {
+      background-color: rgb(53, 53, 53);
+      border-radius: 5px;
+      padding: 40px 60px;
+      width: 700px;
+      margin-top: 80px;
+      font-size: 25px;
+      color: #ead9d9;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      color: #070707;
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid #070707;
+      outline: none;
+      background: transparent;
+    }
+
+    .side {
+      background-color: #d0cfcf;
+    }
+
+    .btn {
+      appearance: button;
+      background-color: rgba(121, 255, 117, 0.642);
+      border: solid transparent;
+      border-radius: 50px;
+      border-width: 0 0 4px;
+      box-sizing: border-box;
+      color: #d0cfcf;
+      cursor: pointer;
+      display: inline-block;
+      font-family: din-round, sans-serif;
+      font-size: 16px; /* зменшено */
+      font-weight: 600;
+      letter-spacing: .8px;
+      line-height: 20px;
+      margin: 10px;
+      outline: none;
+      overflow: visible;
+      padding: 13px 16px;
+      text-align: center;
+      text-transform: uppercase;
+      transition: filter .2s;
+      user-select: none;
+      vertical-align: middle;
+      white-space: nowrap;
+      width: 40%;
+    }
+
+    .btn:hover:not(:disabled) {
+      filter: brightness(1.1);
+    }
+
+    span {
+      margin: 15px;
+      display: block;
+      font-size: 20px;
+      color: #ffffff;
+      line-height: 1.6em;
+      text-align: center;
+    }
+
+    canvas {
+      border: 1px solid #6ce055;
+      background-color: #ffffff;
+      margin-top: 20px;
+    }
+
+
+
+    .nav-link {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #6ce055;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-link:hover {
+            background-color: #56b846;
+        }
+
+        .back {
+            left: 20px;
+        }
+
+        .forward {
+            right: 20px;
+        }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <p><b>Рівняння кола</b></p>
+  <form name="circleForm">
+    <p style="margin-bottom: -20px;">X координата центра (x₀):</p><br>
+    <input class="side" name="x0" type="number" value="150"><br>
+
+    <p style="margin-bottom: -20px;">Y координата центра (y₀):</p><br>
+    <input class="side" name="y0" type="number" value="150"><br>
+
+    <p style="margin-bottom: -20px;">Радіус (r):</p><br>
+    <input class="side" name="r" type="number" value="50"><br>
+
+    <input class="btn" type="button" style="font-size:15px;" value="Показати рівняння та коло" onclick="drawCircle()">
+    <input class="btn" type="reset" value="Скинути" onclick="resetCanvas()">
+    <br>
+    <span id="equation"></span>
+    <canvas id="canvas" width="400" height="400"></canvas>
+  </form>
+</div>
+
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  function drawCircle() {
+    const x0 = parseFloat(document.circleForm.x0.value);
+    const y0 = parseFloat(document.circleForm.y0.value);
+    const r = parseFloat(document.circleForm.r.value);
+    const eqSpan = document.getElementById("equation");
+
+    if (isNaN(x0) || isNaN(y0) || isNaN(r) || r <= 0) {
+      eqSpan.innerHTML = "Будь ласка, введіть коректні значення.";
+      return;
+    }
+
+    eqSpan.innerHTML = `Рівняння: (x - ${x0})² + (y - ${y0})² = ${r*r}`;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.beginPath();
+    ctx.arc(x0, y0, r, 0, 2 * Math.PI);
+    ctx.strokeStyle = "#1CB0F6";
+    ctx.lineWidth = 3;
+    ctx.stroke();
+
+    ctx.fillStyle = "red";
+    ctx.fillRect(x0 - 2, y0 - 2, 4, 4);
+  }
+
+  function resetCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    document.getElementById("equation").innerHTML = "";
+  }
+</script>
+
+<a href="22)Circle formul.html" class="nav-link back">Назад</a>
+<a href="23)Emoji.html" class="nav-link forward">Вперед</a>
+
+</body>
+</html>

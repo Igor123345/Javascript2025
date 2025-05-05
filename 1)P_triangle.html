@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Обчислення трикутника</title>
+    <style>
+        body {
+            background-color: #4a4a4a;
+            font-family: sans-serif;
+            font-size: 25px;
+            color: #ead9d9;
+            text-align: center;
+        }
+
+        .container {
+            background-color: rgb(53, 53, 53);
+            border-radius: 5px;
+            padding: 40px 60px;
+            width: 450px;
+            margin: 100px auto;
+            box-shadow: #6ce055 0px 6px 12px -2px, rgb(0, 0, 0) 0px 3px 7px -3px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px 0;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #070707;
+            margin-bottom: 30px;
+            margin: 5px;
+            border: none;
+            border-bottom: 1px solid #070707;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #6ce055;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 16px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter 0.2s;
+            margin: 10px;
+            width: 40%;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+        }
+
+        span {
+            display: block;
+            margin-top: 20px;
+            font-size: 22px;
+        }
+
+        .nav-link {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #6ce055;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-link:hover {
+            background-color: #56b846;
+        }
+
+        .back {
+            left: 20px;
+        }
+
+        .forward {
+            right: 20px;
+        }
+
+        canvas {
+            margin-top: 30px;
+            border: 1px solid #6ce055;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <p style="color:white; font-size: 30px;">Розрахунок площі та периметра трикутника</p>
+
+    <form id="triangleForm" onsubmit="calculateTriangle(); return false;">
+        <input type="number" id="sideA" placeholder="Сторона A" value="3">
+        <br>
+        <input type="number" id="sideB" placeholder="Сторона B" value="4">
+        <br>
+        <input type="number" id="sideC" placeholder="Сторона C" value="5">
+        <br>
+
+        <input type="submit" class="btn" value="Обчислити">
+        <input type="reset" class="btn" value="Скинути">
+    </form>
+
+    <span id="result"></span>
+    <canvas id="triangleCanvas" width="400" height="300"></canvas>
+</div>
+
+<script>
+    function calculateTriangle() {
+        let a = +document.getElementById('sideA').value;
+        let b = +document.getElementById('sideB').value;
+        let c = +document.getElementById('sideC').value;
+        let result = document.getElementById('result');
+
+        if ((a <= 0) || (b <= 0) || (c <= 0)) {
+            result.innerHTML = "Сторони мають бути додатними числами.";
+            return;
+        }
+
+        if ((a + b > c) && (a + c > b) && (b + c > a)) {
+            let P = a + b + c;
+            let p = P / 2;
+            let S = Math.sqrt(p * (p - a) * (p - b) * (p - c));
+            result.innerHTML = `a = ${a}, b = ${b}, c = ${c}<br>Периметр: ${P}<br>Площа: ${S.toFixed(2)}`;
+            drawTriangle(a, b, c);
+        } else {
+            result.innerHTML = "Трикутник з такими сторонами не існує.";
+        }
+    }
+
+    function drawTriangle(a, b, c) {
+        const canvas = document.getElementById('triangleCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Фіксуємо одну точку (A) внизу зліва
+        const Ax = 50, Ay = 250;
+        const Bx = Ax + c, By = Ay;
+
+        // Знаходимо координати точки C (трикутник ABC)
+        const angleC = Math.acos((a * a + b * b - c * c) / (2 * a * b));
+        const Cx = Ax + a * Math.cos(angleC);
+        const Cy = Ay - a * Math.sin(angleC);
+
+        ctx.beginPath();
+        ctx.moveTo(Ax, Ay);
+        ctx.lineTo(Bx, By);
+        ctx.lineTo(Cx, Cy);
+        ctx.closePath();
+        ctx.strokeStyle = '#6ce055';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.fillStyle = 'rgba(108, 224, 85, 0.2)';
+        ctx.fill();
+    }
+</script>
+
+<a href="2)Compliments.html" class="nav-link forward">Вперед</a>
+
+</body>
+</html>

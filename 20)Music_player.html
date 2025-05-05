@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mini Music Player</title>
+  <style>
+    body {
+      background-color: #1e1e1e;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      margin: 0;
+    }
+
+    .player-container {
+      max-width: 320px;
+      width: 90%;
+      padding: 20px;
+      background-color: #2e2e2e;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    .cover {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      transition: opacity 0.4s ease;
+    }
+
+    .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .controls button {
+      padding: 10px 20px;
+      background-color: #6ce055;
+      color: black;
+      border: none;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .controls button:hover {
+      background-color: #56b846;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+
+
+    .nav-link {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #6ce055;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-link:hover {
+            background-color: #56b846;
+        }
+
+        .back {
+            left: 20px;
+        }
+
+        .forward {
+            right: 20px;
+        }
+  </style>
+</head>
+<body>
+
+  <div class="player-container">
+    <img id="coverImage" class="cover" src="cover1.jpg" alt="Cover Image" />
+    <div class="controls">
+      <button onclick="nextTrack()">Next Track</button>
+      <audio id="audioPlayer" controls>
+        <source src="track1.opus" type="audio/mp3" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    const tracks = [
+      { src: "track1.opus", cover: "cover1.jpg" },
+      { src: "track2.opus", cover: "cover2.jpeg" },
+      { src: "track3.m4a", cover: "cover4.jpg" },
+      { src: "track4.opus", cover: "cover3.jpg" },
+      { src: "track5.m4a", cover: "cover5.jpg" }
+    ];
+
+    let current = 0;
+    const audio = document.getElementById("audioPlayer");
+    const cover = document.getElementById("coverImage");
+
+    function nextTrack() {
+      current = (current + 1) % tracks.length;
+      audio.pause();
+      audio.src = tracks[current].src;
+      audio.load();
+      audio.play();
+      cover.style.opacity = 0;
+      setTimeout(() => {
+        cover.src = tracks[current].cover;
+        cover.style.opacity = 1;
+      }, 300);
+    }
+  </script>
+
+
+<a href="19)Interval_Text.html" class="nav-link back">Назад</a>
+<a href="21)Guess a number.html" class="nav-link forward">Вперед</a>
+
+</body>
+</html>

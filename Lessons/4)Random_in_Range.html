@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Рандом в діапазоні</title>
+    <style>
+        body{
+            background-color: rgb(109, 255, 255);
+            font-size: 50px;
+            text-align: center;
+            font-family: sans-serif;
+        }
+        .container{
+            background-color: rgb(53, 53, 53);
+            border-radius: 5px;
+            padding: 40px 60px;
+            width: 450px;
+            border: #070707 r;
+            box-shadow: #6ce055 0px 6px 12px -2px, rgb(0, 0, 0) 0px 3px 7px -3px;
+            margin-top: 100px;
+            font-size: 25px;
+            color: #ffffff;
+        }
+        body{
+            background-color: #4a4a4a;
+        }
+            input {
+                width: 90%;
+            padding: 10px;
+            font-size: 18px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            color: black;
+            outline: none;
+            }
+
+
+            .side {
+                background-color: white;
+                box-sizing: border-box;
+                color: #000000;
+                cursor: pointer;
+                display: inline-block;
+                font-family: din-round,sans-serif;
+                font-size: 20px;
+                font-weight: 600;
+                letter-spacing: .8px;
+                line-height: 20px;
+        }
+
+        .btn {
+            appearance: button;
+            background-color: #6ce055;
+            border: solid transparent;
+            border-radius: 50px;
+            border-width: 0 0 4px;
+            box-sizing: border-box;
+            color: #000000;
+            cursor: pointer;
+            display: inline-block;
+            font-family: din-round,sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: .8px;
+            line-height: 20px;
+            margin: 10px;
+            outline: none;
+            overflow: visible;
+            padding: 13px 16px;
+            text-align: center;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            transform: translateZ(0);
+            transition: filter .2s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: 30%;
+        }
+
+        .btn:after {
+            background-clip: padding-box;
+            background-color: #1CB0F6;
+            border: solid transparent;
+            border-radius: 16px;
+            border-width: 0 0 4px;
+            bottom: -4px;
+            content: "";
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: -1;
+        }
+
+        .btn:main,
+        .btn:focus {
+        user-select: auto;
+        }
+
+        .btn:hover:not(:disabled) {
+            filter: brightness(1.1);
+            -webkit-filter: brightness(1.1);
+        }
+
+        .btn:disabled {
+            cursor: auto;
+        }
+        span{
+            margin: 15px;
+        }
+
+
+
+        .nav-link {
+        position: fixed;
+        bottom: 20px;
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #6ce055;
+        border-radius: 30px;
+        color: black;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.2s;
+        z-index: 1000;
+    }
+
+    .nav-link:hover {
+        background-color: #56b846;
+    }
+
+    .back {
+        left: 20px;
+    }
+
+    .forward {
+        right: 20px;
+    }
+
+</style>
+</head>
+<body>
+   
+</head>
+<body>
+<script>
+    function co() {
+        let min = +document.co.number_min.value;
+        let max = +document.co.number_max.value;
+        let answer = document.getElementById("answer");
+      
+
+        if(min > max){
+            let rewrite = min;
+            min = max;
+            max = rewrite;
+
+        }
+
+        let number_1 = Math.floor(min+Math.random()*max);
+        let number_2 = Math.floor(min+Math.random()*max);
+
+        while( number_1 > max || number_2 > max){
+            number_1 = Math.floor(min+Math.random()*max);
+            number_2 = Math.floor(min+Math.random()*max);
+        }
+
+        if(number_1 > number_2){
+            let rewrite_2 = number_1;
+            number_1 = number_2;
+            number_2 = rewrite_2;
+
+        }
+
+        let answer_number_1 = Math.floor(number_1+Math.random()*number_2);
+        let answer_number_2 = Math.floor(number_1+Math.random()*number_2);
+        let answer_number_3 = Math.floor(number_1+Math.random()*number_2);
+
+       /* let answer_number_1 = Math.floor(1+Math.random()*number_2);
+        let answer_number_2 = Math.floor(1+Math.random()*number_2);
+        let answer_number_3 = Math.floor(1+Math.random()*number_2);
+*/
+        while( answer_number_1 >= number_2 || answer_number_2 >= number_2 || answer_number_3 >= number_2){
+            answer_number_1 = Math.floor(number_1+Math.random()*number_2);
+            answer_number_2= Math.floor(number_1+Math.random()*number_2);
+            answer_number_3= Math.floor(number_1+Math.random()*number_2);
+        }
+
+        answer.innerHTML = `3 рандомних числа: ${answer_number_1}, ${answer_number_2}, ${answer_number_3} в рандомному діапазоні ${number_1} та ${number_2}  побудованому на базі діапазону ${min} та ${max}`;
+    }
+
+    </script>
+    
+<center>
+<div class="container">
+    
+   <center><h1>Рандом в діапазоні</h1></center>
+    <form name="co" action="javascript:co()">
+
+    <p style="margin-bottom: -20px;">Введіть діапазон</p><br>
+    <input class="side" name="number_min" type="text" value="10" size="4">
+    <input class="side" name="number_max" type="text" value="100" size="4">
+    <input class="btn" type="submit" value="OK">
+    <input class="btn" type="reset" name="reset" value="Скинути"><br>
+    <span id="answer"></span>
+    </form>
+
+
+
+</div></center>
+<a href="3)Number_Analys.html" class="nav-link back">Назад</a>
+<a href="5)Chess_table.html" class="nav-link forward">Вперед</a>
+</body>
+</html>

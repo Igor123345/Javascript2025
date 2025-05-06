@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Генератор компліментів</title>
+  <style>
+    body {
+        background-color: #4a4a4a;
+            text-align: center;
+            font-family: sans-serif;
+            color: white;
+      font-size: 24px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+        background-color: #353535;
+      border-radius: 10px;
+      padding: 40px 60px;
+      width: 500px;
+      margin: 50px auto;
+      font-size: 20px;
+      box-shadow: #6ce055 0px 6px 12px -2px, rgba(0, 0, 0, 0.7) 0px 3px 7px -3px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      color: black;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    .btn {
+      background-color: #6ce055;
+      border: none;
+      border-radius: 50px;
+      padding: 14px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: filter 0.2s;
+      width: 60%;
+      margin-top: 10px;
+    }
+
+
+    
+    
+    .btn:hover {
+      filter: brightness(1.15);
+    }
+
+    .output {
+      margin-top: 30px;
+      font-size: 22px;
+      line-height: 1.6;
+    }
+
+    .output span {
+      font-weight: bold;
+    }
+
+    .nav-link {
+      position: fixed;
+      bottom: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #6ce055;
+      border-radius: 30px;
+      color: black;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.2s;
+      z-index: 1000;
+    }
+
+    .nav-link:hover {
+      background-color: #56b846;
+    }
+
+    .back {
+      left: 20px;
+    }
+
+    .forward {
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+
+
+  <div class="container">
+    <h1>Генератор компліментів</h1>
+    <form id="complimentForm">
+      <input type="number" id="count" name="count" min="1" value="5" placeholder="Кількість компліментів">
+      <button type="button" class="btn" onclick="generateCompliments()">Згенерувати</button>
+    </form>
+
+    <div class="output" id="output"></div>
+  </div>
+
+  <a href="1)P_triangle.html" class="nav-link back">Назад</a>
+  <a href="3)Number_Analys.html" class="nav-link forward">Вперед</a>
+
+  <script>
+    function generateCompliments() {
+      let count = document.getElementById("count").value;
+      let compliments = [
+        "brilliant", "charming", "amazing", "talented", "inspiring", "radiant", "confident", "witty",
+        "creative", "kind", "exceptional", "unique", "smart", "thoughtful", "strong"
+      ];
+      let animals = [
+        "dog", "cat", "elephant", "tiger", "lion", "giraffe", "zebra", "rabbit", "kangaroo", "panda",
+        "bear", "wolf", "fox", "monkey", "dolphin", "whale", "eagle", "parrot", "crocodile", "penguin"
+      ];
+      let colors = ["red", "blue", "green", "yellow", "purple", "orange", "pink", "turquoise", "gold",
+        "silver", "violet", "indigo", "cyan", "magenta", "brown", "black", "white", "gray", "beige", "navy"];
+
+      let outputText = document.getElementById("output");
+      outputText.innerHTML = "";
+
+      for (let i = 1; i <= count; i++) {
+        let randCompliment = Math.floor(Math.random() * compliments.length);
+        let randAnimal = Math.floor(Math.random() * animals.length);
+        let randColor = Math.floor(Math.random() * colors.length);
+
+        let complimentText = `<p>${i}. You are so <span style="color: ${colors[randColor]}">${compliments[randCompliment]}</span>, as
+          <span style="color: ${colors[randColor]}">${animals[randAnimal]}</span>.</p>`;
+
+        outputText.innerHTML += complimentText;
+      }
+    }
+  </script>
+</body>
+</html>

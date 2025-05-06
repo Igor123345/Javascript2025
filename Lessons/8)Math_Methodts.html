@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Математичні обчислення</title>
+    <style>
+        body {
+            background-color: #4a4a4a;
+            font-size: 25px;
+            text-align: center;
+            font-family: sans-serif;
+            color: #ead9d9;
+        }
+
+        .container {
+            background-color: rgb(53, 53, 53);
+            border-radius: 5px;
+            padding: 40px 60px;
+            width: 450px;
+            margin: 100px auto;
+            box-shadow: #6ce055 0px 6px 12px -2px, rgb(0, 0, 0) 0px 3px 7px -3px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px 0;
+            font-size: 16px;
+            color: #070707;
+            margin: 5px;
+            border: none;
+            border-bottom: 1px solid #070707;
+            outline: none;
+        }
+
+        .btn {
+            background-color: #6ce055;
+            border: none;
+            border-radius: 50px;
+            padding: 13px 16px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter 0.2s;
+            margin: 10px;
+            width: 40%;
+        }
+
+        .btn:hover {
+            filter: brightness(1.1);
+        }
+
+        span {
+            display: block;
+            margin-top: 20px;
+            font-size: 22px;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        .nav-link {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #6ce055;
+            border-radius: 30px;
+            color: black;
+            font-weight: bold;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            z-index: 1000;
+        }
+
+        .nav-link:hover {
+            background-color: #56b846;
+        }
+
+        .back {
+            left: 20px;
+        }
+
+        .forward {
+            right: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <p><b>Математичні обчислення</b></p>
+    <form id="form" onsubmit="calculateMath(); return false;">
+        <p>Введіть число:</p>
+        <input id="base" type="number" required>
+        <p>Введіть степінь:</p>
+        <input id="exponent" type="number" required>
+        <input class="btn" type="submit" value="Обчислити">
+        <input class="btn" type="reset" value="Скинути"><br>
+        <span id="answer"></span>
+    </form>
+</div>
+
+<a href="7)Emoji_trees.html" class="nav-link back">Назад</a>
+<a href="9)Number_table.html" class="nav-link forward">Вперед</a>
+
+<script>
+    function factorial(n) {
+        if (n < 0) return "не існує для від'ємних";
+        let f = 1;
+        for (let i = 2; i <= n; i++) f *= i;
+        return f;
+    }
+
+    function fibonacciSeries(count) {
+        if (count <= 0) return "не існує для від'ємних";
+        let series = [];
+        let a = 0, b = 1;
+        for (let i = 0; i < count; i++) {
+            series.push(a);
+            [a, b] = [b, a + b];
+        }
+        return series.join(", ");
+    }
+
+    function calculateMath() {
+        const base = parseInt(document.getElementById('base').value);
+        const exponent = parseInt(document.getElementById('exponent').value);
+        const answer = document.getElementById('answer');
+
+        if (isNaN(base) || isNaN(exponent)) {
+            answer.innerHTML = "Введіть коректні числа.";
+            return;
+        }
+
+        const power = Math.pow(base, exponent);
+        const fact = factorial(base);
+        const fibSeries = fibonacciSeries(10);
+
+        answer.innerHTML = `Число: ${base}
+Степінь ${exponent}: ${power}
+Факторіал: ${fact}
+Перші 10 чисел Фібоначчі: ${fibSeries}`;
+    }
+</script>
+
+</body>
+</html>

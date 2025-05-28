@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Вгадай число</title>
+    <title>Математичний тест</title>
     <style>
         body {
             background-color: #4a4a4a;
@@ -15,21 +15,18 @@
             background-color: rgb(53, 53, 53);
             border-radius: 5px;
             padding: 40px 60px;
-            width: 450px;
+            width: 600px;
             margin: 100px auto;
             font-size: 20px;
         }
 
-        input {
-            width: 100%;
-            padding: 10px 0;
-            font-size: 16px;
-            color: #070707;
-            margin-bottom: 30px;
-            border: none;
-            border-bottom: 1px solid #070707;
-            outline: none;
-            background: transparent;
+        .question {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .question p {
+            margin-bottom: 10px;
         }
 
         .btn {
@@ -39,8 +36,8 @@
             padding: 10px 16px;
             font-size: 16px;
             font-weight: 600;
-            color: #d0cfcf;
-            margin: 5px;
+            color: #070707;
+            margin: 20px;
             cursor: pointer;
             transition: filter 0.2s;
         }
@@ -49,20 +46,10 @@
             filter: brightness(1.1);
         }
 
-        .side {
-            background-color: #d0cfcf;
-        }
-
-        .result {
-            display: none;
-        }
-
         .outlet {
             margin-top: 20px;
             font-weight: bold;
         }
-
-
 
         .nav-link {
             position: fixed;
@@ -92,57 +79,74 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <p><b>Гра: Вгадай число</b></p>
-        <p>Введіть мінімальне значення</p>
-        <input class="side" type="text" id="min">
-        <p>Введіть максимальне значення</p>
-        <input class="side" type="text" id="max">
-        <button class="btn" onclick="startGame()">Почати</button>
 
-        <div class="result" id="resultBlock">
-            <p id="message"></p>
-            <input class="side" type="text" id="guess" placeholder="Введіть ваше число">
-            <button class="btn" onclick="checkGuess()">Перевірити</button>
+<div class="container">
+    <h2>Міні математичний тест</h2>
+
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Чому дорівнює √49?</p>
+            <label><input type="radio" name="q1" value="5"> 5</label><br>
+            <label><input type="radio" name="q1" value="7"> 7</label><br>
+            <label><input type="radio" name="q1" value="9"> 9</label>
         </div>
 
-        <div class="outlet" id="output"></div>
-    </div>
+        <div class="question">
+            <p>2. Скільки буде 5 * 5 / 5?</p>
+            <label><input type="radio" name="q2" value="5"> 5</label><br>
+            <label><input type="radio" name="q2" value="25"> 25</label><br>
+            <label><input type="radio" name="q2" value="1"> 1</label>
+        </div>
 
-    <script>
-        let hiddenNumber;
-        let attempts = 0;
+        <div class="question">
+            <p>3. Скільки буде 12 - 7?</p>
+            <label><input type="radio" name="q3" value="5"> 5</label><br>
+            <label><input type="radio" name="q3" value="4"> 4</label><br>
+            <label><input type="radio" name="q3" value="6"> 6</label>
+        </div>
 
-        function startGame() {
-            const min = parseInt(document.getElementById('min').value);
-            const max = parseInt(document.getElementById('max').value);
-            if (isNaN(min) || isNaN(max) || min >= max) {
-                document.getElementById('output').innerText = "Введіть коректний діапазон чисел.";
-                return;
+        <div class="question">
+            <p>4. Скільки буде 3²?</p>
+            <label><input type="radio" name="q4" value="6"> 6</label><br>
+            <label><input type="radio" name="q4" value="9"> 9</label><br>
+            <label><input type="radio" name="q4" value="12"> 12</label>
+        </div>
+
+        <div class="question">
+            <p>5. Скільки буде (10 + 2) * 2?</p>
+            <label><input type="radio" name="q5" value="24"> 24</label><br>
+            <label><input type="radio" name="q5" value="20"> 20</label><br>
+            <label><input type="radio" name="q5" value="22"> 22</label>
+        </div>
+
+        <button type="button" class="btn" onclick="checkAnswers()">Перевірити тест</button>
+    </form>
+
+    <div class="outlet" id="output"></div>
+</div>
+
+<script>
+    function checkAnswers() {
+        const correctAnswers = {
+            q1: "7",
+            q2: "5",
+            q3: "5",
+            q4: "9",
+            q5: "24"
+        };
+
+        let score = 0;
+
+        for (let q in correctAnswers) {
+            const selected = document.querySelector(`input[name="${q}"]:checked`);
+            if (selected && selected.value === correctAnswers[q]) {
+                score++;
             }
-            hiddenNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-            attempts = 0;
-            document.getElementById('message').innerText = `Спробуйте вгадати число від ${min} до ${max}`;
-            document.getElementById('resultBlock').style.display = 'block';
-            document.getElementById('output').innerText = '';
         }
 
-        function checkGuess() {
-            const guess = parseInt(document.getElementById('guess').value);
-            if (isNaN(guess)) {
-                document.getElementById('output').innerText = "Введіть число!";
-                return;
-            }
-            attempts++;
-            if (guess < hiddenNumber) {
-                document.getElementById('output').innerText = "Загадане число більше.";
-            } else if (guess > hiddenNumber) {
-                document.getElementById('output').innerText = "Загадане число менше.";
-            } else {
-                document.getElementById('output').innerText = `Ви вгадали! Кількість спроб: ${attempts}`;
-            }
-        }
-    </script>
+        document.getElementById('output').innerText = `Правильних відповідей: ${score} з 5`;
+    }
+</script>
 
 <a href="20)Music_player.html" class="nav-link back">Назад</a>
 <a href="22)Circle formul.html" class="nav-link forward">Вперед</a>
